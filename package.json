@@ -1,0 +1,58 @@
+{
+  "name": "metaanalysis",
+  "version": "1.0.0",
+  "description": "Meta-Analysis Software",
+  "author": "MetaAnalysis",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.metaanalysis.app",
+    "productName": "MetaAnalysis",
+    "asar": false,
+    "compression": "store",
+    "win": {
+      "target": "zip"
+    },
+    "extraResources": [
+      {
+        "from": "R",
+        "to": "R",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "library",
+        "to": "library",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "pandoc",
+        "to": "pandoc",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "run_app.R",
+        "to": "run_app.R"
+      },
+      {
+        "from": "app_ui.R",
+        "to": "app_ui.R"
+      },
+      {
+        "from": "app_server.R",
+        "to": "app_server.R"
+      }
+    ],
+    "files": [
+      "main.js",
+      "loading.html",
+      "node_modules/**/*"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^22.0.0",
+    "electron-builder": "^24.0.0"
+  }
+}
