@@ -9,7 +9,7 @@ Department of Clinical Nutrition and Biochemistry, Faculty of Medicine, Neyshabu
 
 ## Features
 
-- **Pairwise Meta-Analysis** — random-effects models (Hartung-Knapp), forest plots, subgroup analysis
+- **Pairwise Meta-Analysis** — random-effects models (Hartung-Knapp), forest plots, subgroup analysis(continious)
 - **Dose-Response Meta-Analysis** — restricted cubic splines, effect prediction for new dose values
 - **Meta-Regression** — covariate/moderator analysis with bubble plots
 - **Publication Bias Diagnostics** — Egger's test, Begg's test, Trim & Fill, funnel plots
@@ -48,7 +48,7 @@ This project is shared for research and educational purposes.
 
 ## امکانات
 
-- **متا-آنالیز زوجی (Pairwise)** — مدل اثرات تصادفی (Hartung-Knapp)، نمودار Forest، آنالیز زیرگروه
+- **متا-آنالیز زوجی (continious)(Pairwise)** — مدل اثرات تصادفی (Hartung-Knapp)، نمودار Forest، آنالیز زیرگروه
 - **متا-آنالیز دوز-پاسخ** — اسپلاین‌های مکعبی محدودشده، پیش‌بینی اثر برای دوزهای جدید
 - **متا-رگرسیون** — آنالیز کوواریت/مدیریتور با نمودار حبابی
 - **تشخیص سوگیری انتشار** — آزمون Egger، آزمون Begg، Trim & Fill، نمودار Funnel
