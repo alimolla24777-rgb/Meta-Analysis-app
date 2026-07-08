@@ -74,3 +74,20 @@ This project is shared for research and educational purposes.
 
 این پروژه برای اهداف پژوهشی و آموزشی به اشتراک گذاشته شده است.
 
+
+
+
+
+
+<img width="1919" height="988" alt="image" src="https://github.com/user-attachments/assets/3401da7a-9633-443c-afac-96e5fe3c42d6" />
+<img width="1919" height="955" alt="image" src="https://github.com/user-attachments/assets/c2d15c7f-060e-4f88-9d57-fd3184555ffa" />
+<img width="1915" height="973" alt="Screenshot 2026-07-08 232505" src="https://github.com/user-attachments/assets/8f240c58-1c76-4000-b74e-9bb5a6049664" />
+<img width="1919" height="992" alt="image" src="https://github.com/user-attachments/assets/e4789f27-a0aa-422c-8333-fa07e0359b69" />
+<img width="1896" height="957" alt="image" src="https://github.com/user-attachments/assets/80a88661-4b21-4e23-adb1-885a749e9507" />
+<img width="1891" height="953" alt="image" src="https://github.com/user-attachments/assets/ad40044e-5af5-470a-98e5-f5baed739612" />
+<img width="1919" height="907" alt="image" src="https://github.com/user-attachments/assets/f0256a67-e278-4822-b3b0-f370df977d3a" />
+<img width="1899" height="955" alt="image" src="https://github.com/user-attachments/assets/57be8e2f-0fd9-4789-97e8-e10ffbc89463" />
+<img width="1919" height="981" alt="image" src="https://github.com/user-attachments/assets/35895f79-66f7-4d25-b5ed-9f7805407fae" />
+<img width="1918" height="962" alt="image" src="https://github.com/user-attachments/assets/f9ea2991-80b6-49ef-88d5-8a77d4a2de75" />
+
+
