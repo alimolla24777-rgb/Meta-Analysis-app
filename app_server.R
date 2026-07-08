@@ -1,5 +1,4 @@
 # server.R
-# نسخه نهایی با تمام اصلاحات - کاملاً تست شده
 
 app_server <- function(input, output, session) {
 
@@ -11,7 +10,6 @@ app_server <- function(input, output, session) {
   }
 
   # ================================================================
-  #                   توابع کمکی تفسیر
   # ================================================================
 
   interpret_effect_size <- function(TE, sm, pval) {
@@ -203,7 +201,6 @@ app_server <- function(input, output, session) {
     return(msgs)
   }
 
-  # ---------- سطح ۲: تفسیر روش‌شناختی ----------
   methodological_interpretation <- function(res, analysis_type,
                                             egger_obj, begg_obj, trimfill_obj,
                                             loo_obj, small_obj, covariate_name = NULL) {
@@ -312,7 +309,6 @@ app_server <- function(input, output, session) {
     return(msgs)
   }
 
-  # ---------- سطح ۳: کمک به نگارش ----------
   writing_assistant <- function(res, analysis_type, sm = "MD",
                                 statistical_msgs, methodological_msgs) {
     txt <- ""
@@ -412,7 +408,6 @@ app_server <- function(input, output, session) {
     return(txt)
   }
 
-  # ---------- تابع اصلی تفسیر ----------
   interpretation_full <- function(res, analysis_type,
                                   egger_obj = NULL, begg_obj = NULL, trimfill_obj = NULL,
                                   loo_obj = NULL, small_obj = NULL,
@@ -431,7 +426,6 @@ app_server <- function(input, output, session) {
     )
   }
 
-  # ---------- برون‌یابی خطی (برای دوز-پاسخ) ----------
   extrapolate_effect <- function(new_dose, dose_vec, effect_vec) {
     if (new_dose < min(dose_vec)) {
       x1 <- dose_vec[1]; x2 <- dose_vec[2]
@@ -452,7 +446,6 @@ app_server <- function(input, output, session) {
   dr_model_storage <- reactiveVal(NULL)
   dr_newdata_storage <- reactiveVal(NULL)
 
-  # ---------- خواندن فایل و شیت ----------
   sheets <- shiny::reactive({
     shiny::req(input$file)
     readxl::excel_sheets(path = input$file$datapath)
@@ -514,7 +507,6 @@ app_server <- function(input, output, session) {
     }
   })
 
-  # فعال/غیرفعال کردن دکمه آنالیز
   observe({
     file_ok <- !is.null(input$file)
     sheet_ok <- !is.null(input$sheet)
@@ -550,7 +542,6 @@ app_server <- function(input, output, session) {
   })
 
   # ================================================================
-  #                   آنالیز اصلی (با ساختار status/error)
   # ================================================================
   result <- shiny::eventReactive(input$analyze, {
     df <- data_raw()
@@ -678,12 +669,10 @@ app_server <- function(input, output, session) {
     })
   })
 
-  # ---------- ری‌اکتیو تفسیر (با tryCatch و بررسی کامل) ----------
   interpretation <- reactive({
     tryCatch({
       res_obj <- result()
 
-      # ===== ایمنی: اگر res_obj لیست نباشد =====
       if (!is.list(res_obj)) {
         return(list(
           statistical = list(note = "Invalid result object. Please re-run analysis."),
@@ -749,7 +738,6 @@ app_server <- function(input, output, session) {
     })
   })
 
-  # ---------- پیش‌بینی دوز-پاسخ ----------
   observeEvent(input$predict_dr_btn, {
     req(input$new_dose)
     res_obj <- result()
@@ -840,10 +828,8 @@ app_server <- function(input, output, session) {
   })
 
   # ================================================================
-  #                   خروجی‌های اصلی با مدیریت کامل خطا
   # ================================================================
 
-  # ---------- Summary Tab (با tryCatch و بررسی کامل) ----------
   output$summary <- renderUI({
     tryCatch({
       res_obj <- tryCatch(result(), error = function(e) NULL)
@@ -924,7 +910,6 @@ app_server <- function(input, output, session) {
         }
 
       } else if (is.list(res) && !is.null(res$model)) {
-        # ========== خلاصه عددی برای دوز-پاسخ ==========
         model <- res$model
         if (inherits(model, "dosresmeta")) {
           html <- paste0(html, "<h4>Dose-Response Model Summary</h4>")
@@ -968,7 +953,6 @@ app_server <- function(input, output, session) {
 
       html <- paste0(html, "<hr>")
 
-      # تفسیر سه‌سطحی
       html <- paste0(html, "<h3 style='color:#2c7fb8;'>📊 Statistical Interpretation</h3>")
       if (!is.null(interp$statistical) && length(interp$statistical) > 0) {
         for (txt in interp$statistical) {
@@ -1007,7 +991,6 @@ app_server <- function(input, output, session) {
     })
   })
 
-  # ---------- سایر تفسیرها و نمودارها (با مدیریت ایمن) ----------
   output$forest_interpretation <- renderUI({
     tryCatch({
       res_obj <- result()
@@ -1203,7 +1186,6 @@ app_server <- function(input, output, session) {
     })
   })
 
-  # ---------- نمودارها ----------
   output$forestPlot <- shiny::renderPlot({
     tryCatch({
       res_obj <- result()
@@ -1364,7 +1346,6 @@ app_server <- function(input, output, session) {
     })
   })
 
-  # ---------- توابع حساسیت ----------
   leave_one_out <- shiny::reactive({
     res_obj <- result()
     if (!is.list(res_obj) || res_obj$status != "success") return(NULL)
@@ -1420,7 +1401,6 @@ app_server <- function(input, output, session) {
     )
   })
 
-  # ---------- خروجی‌های حساسیت ----------
   output$egger_test_result <- shiny::renderPrint({
     test <- egger_test()
     if (is.null(test)) cat("Egger's test not available (run pairwise analysis first).")
@@ -1539,7 +1519,6 @@ app_server <- function(input, output, session) {
     })
   })
 
-  # ---------- دانلودها ----------
   output$download_summary <- downloadHandler(
     filename = function() paste0("summary_", Sys.Date(), ".txt"),
     content = function(file) {
@@ -1791,7 +1770,6 @@ app_server <- function(input, output, session) {
     }
   )
 
-  # ---------- گزارش HTML جامع (با اصلاح تایپی و I²) ----------
   output$download_report <- shiny::downloadHandler(
     filename = function() { paste0("meta_analysis_report_", Sys.Date(), ".html") },
     content = function(file) {
@@ -1816,7 +1794,6 @@ app_server <- function(input, output, session) {
 
         res <- res_obj$data
 
-        # ----- فارست پلات اصلی -----
         tmp_forest <- NULL
         if (!is.null(res) && (inherits(res, "meta") || (is.list(res) && !is.null(res$meta)))) {
           meta_obj <- if (inherits(res, "meta")) res else res$meta
@@ -1830,7 +1807,6 @@ app_server <- function(input, output, session) {
           dev.off()
         }
 
-        # ----- فانل پلات -----
         tmp_funnel <- NULL
         if (inherits(res, "meta")) {
           tmp_funnel <- tempfile(fileext = ".png")
@@ -1844,7 +1820,6 @@ app_server <- function(input, output, session) {
           dev.off()
         }
 
-        # ----- دوز-پاسخ -----
         tmp_dose <- NULL
         if (analysis_type == "Dose-Response Meta-Analysis" && is.list(res) && !is.null(res$pred)) {
           tmp_dose <- tempfile(fileext = ".png")
@@ -1876,7 +1851,6 @@ app_server <- function(input, output, session) {
           dev.off()
         }
 
-        # ----- حباب متارگرسیون -----
         tmp_bubble <- NULL
         if (analysis_type == "Meta-Regression" && is.list(res) && !is.null(res$metareg)) {
           tmp_bubble <- tempfile(fileext = ".png")
@@ -1887,7 +1861,6 @@ app_server <- function(input, output, session) {
           dev.off()
         }
 
-        # ----- Trim & Fill -----
         tf <- trimfill_res()
         tmp_trimfill <- NULL
         if (!is.null(tf)) {
@@ -1946,7 +1919,6 @@ app_server <- function(input, output, session) {
           dev.off()
         }
 
-        # ----- متون تفسیر برای گزارش -----
         interp <- interpretation()
         interp_html <- ""
         if (is.list(interp) && length(interp) > 0) {
@@ -1970,7 +1942,6 @@ app_server <- function(input, output, session) {
           interp_html <- "<p>No interpretation available.</p>"
         }
 
-        # ----- خلاصه عددی برای گزارش -----
         summary_lines <- capture.output({
           if (is.null(res)) cat("Analysis not available.")
           else if (inherits(res, "meta")) print(summary(res))
@@ -1985,7 +1956,6 @@ app_server <- function(input, output, session) {
         })
         summary_text <- paste(summary_lines, collapse = "\n")
 
-        # ===== اصلاح تایپی: begger -> egger و I² =====
         egger_lines <- capture.output({
           eg <- egger_test()
           if (is.null(eg)) cat("Egger's test not available (run pairwise analysis first).")
@@ -2028,7 +1998,6 @@ app_server <- function(input, output, session) {
         })
         small_text <- paste(small_lines, collapse = "\n")
 
-        # ----- فایل Rmd -----
         rmd_file <- tempfile(fileext = ".Rmd")
         writeLines(c(
           "---",
@@ -2130,7 +2099,7 @@ app_server <- function(input, output, session) {
                           envir = new.env(),
                           quiet = TRUE)
       }, error = function(e) {
-        # در صورت بروز خطا، یک گزارش ساده با پیام خطا تولید شود
+
         rmd_file <- tempfile(fileext = ".Rmd")
         writeLines(c(
           "---",
