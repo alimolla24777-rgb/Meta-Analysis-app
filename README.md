@@ -35,6 +35,12 @@ This repository contains the application source code (`app_ui.R`, `app_server.R`
 
 This project is shared for research and educational purposes.
 
+
+## How to Cite
+
+If you use this software in your research, please cite it as:
+
+> Molahassani, A. (2026). *Meta-Analysis Software: A Desktop Application for Meta-Analysis* [Computer software]. GitHub. https://github.com/alimolla24777-rgb/Meta-Analysis-app
 ---
 
 # نرم‌افزار متا-آنالیز
