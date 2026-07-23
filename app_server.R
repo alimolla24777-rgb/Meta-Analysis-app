@@ -930,9 +930,8 @@ app_server <- function(input, output, session) {
               `95% CI Lower` = round(ci_low, 4),
               `95% CI Upper` = round(ci_up, 4)
             )
-            html <- paste0(html, "<pre>")
-            html <- paste0(html, capture.output(print(df_coef, row.names = FALSE)), collapse = "\n")
-            html <- paste0(html, "</pre>")
+            coef_text <- paste(capture.output(print(df_coef, row.names = FALSE)), collapse = "\n")
+            html <- paste0(html, "<pre>", coef_text, "</pre>")
           } else {
             html <- paste0(html, "<p>Coefficients not available.</p>")
           }
