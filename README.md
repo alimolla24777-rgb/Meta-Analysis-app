@@ -41,6 +41,8 @@ This project is shared for research and educational purposes.
 If you use this software in your research, please cite it as:
 
 > Molahassani, A. (2026). *Meta-Analysis Software: A Desktop Application for Meta-Analysis* [Computer software]. GitHub. https://github.com/alimolla24777-rgb/Meta-Analysis-app
+>
+> Ali Molahassani. (2026). alimolla24777-rgb/Meta-Analysis-app: Meta-Analysis Software v1.0.1 (Version v1.0.1) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.21509200
 ---
 
 # نرم‌افزار متا-آنالیز
